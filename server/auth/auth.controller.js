@@ -1,14 +1,5 @@
 const jwt = require('jsonwebtoken');
-const httpStatus = require('http-status');
-const APIError = require('../helpers/APIError');
-const config = require('../../config/config');
-
-// sample user, used for authentication
-const user = {
-  username: 'react',
-  password: 'express'
-};
-
+const User = require('../gestus/gestus.model');
 /**
  * Returns jwt token if valid username and password is provided
  * @param req
@@ -16,35 +7,28 @@ const user = {
  * @param next
  * @returns {*}
  */
-function login(req, res, next) {
-  // Ideally you'll fetch this from the db
-  // Idea here was to show how jwt works with simplicity
-  if (req.body.username === user.username && req.body.password === user.password) {
-    const token = jwt.sign({
-      username: user.username
-    }, config.jwtSecret);
-    return res.json({
-      token,
-      username: user.username
-    });
+async function login(req, res, next) {
+
+
+  // email dosn't exist
+  const client = await User.findOne({ email: req.body.Email });
+  if (!client) return res.status(400).send("email  doesn't exists");
+
+  if (req.body.password == client.mdp) {
+    //create the token 
+    const token = jwt.sign({ _id: client._id }, "qsd");
+    response = {
+      token:token
+    }
+    // res.header("auth-token",token).send(token);
+    res.status(200).json(response);
+    console.log(" connected  :", client.nom,);
+  } else {
+    return res.status(400).send("Invalide password");
   }
 
-  const err = new APIError('Authentication error', httpStatus.UNAUTHORIZED, true);
-  return next(err);
+
+
 }
 
-/**
- * This is a protected route. Will return random number only if jwt token is provided in header.
- * @param req
- * @param res
- * @returns {*}
- */
-function getRandomNumber(req, res) {
-  // req.user is assigned by jwt middleware if valid token is provided
-  return res.json({
-    user: req.user,
-    num: Math.random() * 100
-  });
-}
-
-module.exports = { login, getRandomNumber };
+module.exports = { login };

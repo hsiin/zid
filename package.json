@@ -11,6 +11,7 @@
     "yarn": ">=1.5.1"
   },
   "scripts": {
+    "nodemon": "yarn start",
     "start": "node index.js",
     "start:debug": "cross-env DEBUG=express-mongoose-es6-rest-api:* yarn start",
     "lint": "esw *.js server config --color",
@@ -56,8 +57,14 @@
     "joi": "10.6.0",
     "jsonwebtoken": "7.1.9",
     "method-override": "^2.3.10",
+    "moment": "^2.29.1",
     "mongoose": "4.7.4",
+    "mongoose-paginate": "^5.0.3",
+    "mongoose-paginate-v2": "^1.3.16",
     "morgan": "1.9.0",
+    "multer": "^1.4.2",
+    "nodemon": "^2.0.7",
+    "uuid": "^3.4.0",
     "winston": "2.4.1"
   },
   "devDependencies": {

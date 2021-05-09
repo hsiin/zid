@@ -2,12 +2,12 @@ const Joi = require('joi');
 
 module.exports = {
   // POST /api/users
-  createUser: {
-    body: {
-      username: Joi.string().required(),
-      mobileNumber: Joi.string().regex(/^[1-9][0-9]{9}$/).required()
-    }
-  },
+  // createUser: {
+  //   body: {
+  //     username: Joi.string().required(),
+  //     mobileNumber: Joi.string().regex(/^[1-9][0-9]{9}$/).required()
+  //   }
+  // },
 
   // UPDATE /api/users/:userId
   updateUser: {

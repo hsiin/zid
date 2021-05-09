@@ -27,6 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(compress());
 app.use(methodOverride());
+app.use('//uploads',express.static('uploads'))
 
 // secure apps by setting various HTTP headers
 app.use(helmet());
